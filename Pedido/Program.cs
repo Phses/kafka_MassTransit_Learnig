@@ -7,7 +7,9 @@ using Pedido.Domain.KafkaConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration
+    .AddUserSecrets<Program>()
+    .AddEnvironmentVariables();
 
 builder.Services.AddControllers();
 
@@ -15,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 var kafkaOptions = builder.Configuration.GetSection("Kafka").Get<KafkaOptions>();
 builder.Services.AddSingleton(kafkaOptions);
+
 
 
 builder.Host
