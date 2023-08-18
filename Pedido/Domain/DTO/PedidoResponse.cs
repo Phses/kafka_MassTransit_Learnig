@@ -1,16 +1,14 @@
-﻿using MongoDB.Bson;
-using Pedido.Domain.Enums;
+﻿using Pedido.Domain.Enums;
 
-namespace Pedido.Domain.Entities
+namespace Pedido.Domain.DTO
 {
-    public class PedidoEntitie
+    public class PedidoResponse
     {
-        public ObjectId Id { get; set; }
+        public string? Id { get; set; }
+        public IEnumerable<string> ProdutosIds { get; set; }
         public StatusPedido StatusPedido { get; set; }
-        public IEnumerable<ObjectId> ProdutosIds { get; set; }
         public double ValorTotal { get; set; }
         public DateTime DataInclusao { get; set; }
         public DateTime? DataAlteracao { get; set; }
     }
 }
- 

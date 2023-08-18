@@ -12,6 +12,7 @@ builder.Configuration
     .AddUserSecrets<Program>()
     .AddEnvironmentVariables();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 
@@ -28,14 +29,19 @@ builder.Host.ConfigureSerilog().UseMassTransit((hostContext, x) =>
 
         r.AddConsumer<PedidoConsumer>();
 
-        var topic = hostContext.Configuration.GetValue<string>("Topics:ConsumerTopicName");
+        var topicConsumer = hostContext.Configuration.GetValue<string>("Topics:ConsumerTopicName");
+
+        var topicProducer = hostContext.Configuration.GetValue<string>("Topics:ProducerTopicName");
+        
+        r.AddProducer<string, StatusEstoque>(topicProducer);
 
         r.UsingKafka((context, cfg) =>
         {
 
             cfg.ClientId = "EstoqueApi";
 
-            cfg.TopicEndpoint<string, PedidoDTO>(topic, "teste", e =>
+
+            cfg.TopicEndpoint<string, PedidoDTO>(topicConsumer, "teste", e =>
             {
                 e.ConfigureConsumer<PedidoConsumer>(context);
             });

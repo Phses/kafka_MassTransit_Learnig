@@ -1,10 +1,10 @@
-﻿namespace Estoque.Domain.Entities
+﻿using Estoque.Domain.Enums;
+using MongoDB.Bson;
+
+namespace Estoque.Domain.Entities
 {
     public class Pedido
     {
-        public int Id { get; set; }
-        public int IdProduto { get; set; }
-        public int Qtde { get; set; }
-        public double ValorTotal { get; set; }
+        public IEnumerable<ObjectId> ProdutosIds { get; set; }
     }
 }

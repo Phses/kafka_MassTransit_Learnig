@@ -4,8 +4,9 @@ using MassTransit;
 using Microsoft.Extensions.Options;
 using Confluent.Kafka;
 using Pedido.Domain.KafkaConfig;
+using Pedido.Config;
 
-namespace Pedido
+namespace Pedido.Config
 {
     public static class ServiceConfigurationExtensions
     {
